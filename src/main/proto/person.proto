@@ -1,9 +1,37 @@
 syntax = "proto3";
+import "google/protobuf/wrappers.proto";
 
 option java_multiple_files = true;
 option java_package = "org.example.models";
 
+enum BodyStyle {
+  UNKNOWN = 0; // first enum value must be 0 and represents the default value (if an enum field is not set)
+  SEDAN = 1;
+  COUPE = 2;
+  SUV = 3;
+}
+
+message Address {
+  string street = 1;
+  string city = 2;
+  string postalCode = 3;
+}
+
+message Car {
+  string make = 1;
+  string model = 2;
+  uint32 year = 3;
+  BodyStyle body_style = 4;
+}
+
 message Person {
   string name = 1;
   int32 age = 2;
+  Address address = 3;
+  repeated Car car = 4;
+  google.protobuf.StringValue nickname = 5;
+}
+
+message Dealer {
+  map<uint32, Car> year_model = 1;
 }
