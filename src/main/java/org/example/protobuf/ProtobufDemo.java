@@ -18,9 +18,15 @@ public class ProtobufDemo {
                 .setAge(11)
                 .build();
         System.out.println(marko);
-        System.out.println(marko.equals(marko2)); // true
+        System.out.println(marko.equals(marko2)); // true (equals compares each field)
 
+        // serialize a person object and write it to a file
         final Path path = Paths.get("marko.ser");
         Files.write(path, marko.toByteArray());
+
+        // read a person from a file and deserialize
+        byte[] bytes = Files.readAllBytes(path);
+        Person newMarko = Person.parseFrom(bytes);
+        System.out.println("\nDeserialized:\n" + newMarko);
     }
 }
